@@ -2,3 +2,5 @@
 .idea
 build
 ASTM_Precision.egg-info
+__pycache__/
+*.pyc
