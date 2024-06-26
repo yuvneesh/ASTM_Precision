@@ -52,10 +52,19 @@ class AbstractASTM(ABC):
         """Calculates the reproducibility limit for the data"""
         raise NotImplementedError
 
+    @abc.abstractmethod
+    def _in_domain(self, value:Union[int, float]) -> bool:
+        """Return true if the given *value* is in the domain of the ASTM Precision equations.
+        """
+        raise NotImplementedError
+
     def validate_data(self):
         """
         Returns the dictionary of invalid datapoints
         """
+        if not self._in_domain(self.average):
+            return "The average of test results is not within the domain of values on which ASTM Precision equations are defined."
+
         invalid = {}
 
         for point in self.data:

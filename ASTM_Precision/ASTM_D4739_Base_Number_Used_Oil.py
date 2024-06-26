@@ -1,7 +1,12 @@
+from typing import Union
+
 from .abstractASTM import AbstractASTM
 
 
 class ASTMD4739BaseNumberUsedOil(AbstractASTM):
+    def _in_domain(self, value: Union[int, float]) -> bool:
+        return True
+
     @property
     def astm_method_number(self):
         return "D4739"
