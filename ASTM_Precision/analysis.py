@@ -38,17 +38,8 @@ def validate_dict(data):
 
 
 def analyze(data: Dict[str, Union[List[int, float], str]]):
-    if not validate_dict(data):
-        print("=================")
-        print("KEYS")
-        for k in data.keys():
-            print(f"    {k}")
-        print("=================")
-        print("VALUE TYPES")
-        for v in data.values():
-            print(f"    {v}    TYPE: {type(v)}")
-
-        raise InvalidFormat
+    # if not validate_dict(data):
+    #    raise InvalidFormat
 
     astm_method = get_astm_method(data['test_method'])
     instantiated = astm_method(data['data'])
