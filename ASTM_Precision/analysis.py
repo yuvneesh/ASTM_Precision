@@ -13,14 +13,12 @@ def import_all():
             importlib.import_module('.' + module_name, 'ASTM_Precision')
 
 
-def get_astm_method(method_number: str, analyte_name: str):
+def get_astm_method(test_method: str):
     """
-    Return the appropriate ASTM method for the given method/analyte combination.
+    Return the appropriate ASTM method for the given test_method combination.
     """
     import_all()
-    search_key = "ASTM" + method_number + analyte_name
-    search_key = search_key.replace(" ", "")
-    astm_method = AbstractASTM.registry[search_key]
+    astm_method = AbstractASTM.registry[test_method]
     return astm_method
 
 
@@ -29,12 +27,10 @@ def is_list_of_numbers(var):
 
 
 def validate_dict(data):
-    expected_keys = {'method', 'analyte', 'data'}
+    expected_keys = {'test_method', 'data'}
     if not all(key in data for key in expected_keys):
         return False
-    if not isinstance(data['method'], str):
-        return False
-    if not isinstance(data['analyte'], str):
+    if not isinstance(data['test_method'], str):
         return False
     if not is_list_of_numbers(data['data']):
         return False
@@ -45,7 +41,7 @@ def analyze(data: Dict[str, Union[List[int, float], str]]):
     if not validate_dict(data):
         raise InvalidFormat
 
-    astm_method = get_astm_method(data['method'], data['analyte'])
+    astm_method = get_astm_method(data['test_method'])
     instantiated = astm_method(data['data'])
     return instantiated.validate_data()
 
@@ -53,9 +49,10 @@ def analyze(data: Dict[str, Union[List[int, float], str]]):
 def available_methods():
     import_all()
     methods = []
-    for method in AbstractASTM.registry.values():
-        name = " ".join(str(method).split(".")[1].split("_")[2:])
-        methods.append(name)
+    for k, v in AbstractASTM.registry.items():
+        identifiable_name = k
+        display_name = " ".join(str(v).split(".")[1].split("_")[2:])
+        methods.append((identifiable_name, display_name))
     return methods
 
 

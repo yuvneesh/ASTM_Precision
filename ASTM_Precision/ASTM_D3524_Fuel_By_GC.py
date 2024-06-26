@@ -1,4 +1,4 @@
-from typing import Union
+from typing import List, Union
 
 from .abstractASTM import AbstractASTM
 
@@ -11,6 +11,10 @@ class ASTMD3524FuelByGC(AbstractASTM):
     @property
     def analyte_name(self):
         return "Fuel By GC"
+
+    def __init__(self, data: List[Union[int, float]]) -> None:
+        self.data = data
+        super().__init__()
 
     def _calculate_repeatability(self):
         return 0.3

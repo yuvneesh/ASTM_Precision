@@ -1,4 +1,4 @@
-from typing import Union
+from typing import List, Union
 
 from .abstractASTM import AbstractASTM
 
@@ -14,6 +14,10 @@ class ASTMD4739BaseNumberUsedOil(AbstractASTM):
     @property
     def analyte_name(self):
         return "Base Number Used Oil"
+
+    def __init__(self, data: List[Union[int, float]]) -> None:
+        self.data = data
+        super().__init__()
 
     def _calculate_repeatability(self):
         repeatability = 0.22 * (self.average ** 0.47)
