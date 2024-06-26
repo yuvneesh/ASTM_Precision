@@ -50,6 +50,15 @@ def analyze(data: Dict[str, Union[List[int, float], str]]):
     return instantiated.validate_data()
 
 
+def available_methods():
+    import_all()
+    methods = []
+    for method in AbstractASTM.registry.values():
+        name = " ".join(str(method).split(".")[1].split("_")[2:])
+        methods.append(name)
+    return methods
+
+
 class InvalidFormat(Exception):
     def __init__(self, message="Invalid format"):
         self.message = message

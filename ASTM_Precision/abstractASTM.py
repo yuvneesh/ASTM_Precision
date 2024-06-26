@@ -28,6 +28,9 @@ class AbstractASTM(ABC):
         self.repeatability = self._calculate_repeatability()
         self.reproducibility = self._calculate_reproducibility()
 
+    def __str__(self):
+        return str(self.analyte_name())
+
     def _calculate_average(self):
         """Calculates the average value for the data
         """

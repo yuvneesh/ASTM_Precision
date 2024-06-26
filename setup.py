@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='ASTM_Precision',
-    version='0.2',
+    version='0.3',
     packages=find_packages(),
     description='A module for analyzing Precision conformance for ASTM methods',
     author='Yuvneesh Kashyap',
