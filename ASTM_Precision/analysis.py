@@ -38,8 +38,8 @@ def validate_dict(data):
 
 
 def analyze(data: Dict[str, Union[List[int, float], str]]):
-    # if not validate_dict(data):
-    #    raise InvalidFormat
+    if not validate_dict(data):
+       raise InvalidFormat
 
     astm_method = get_astm_method(data['test_method'])
     instantiated = astm_method(data['data'])
